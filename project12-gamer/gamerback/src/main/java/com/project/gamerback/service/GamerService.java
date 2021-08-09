@@ -8,5 +8,9 @@ public interface GamerService {
 
 	Optional<Gamer> getByMail(String mail);
 	
+	Optional<Gamer> getById(int id);
+	
+	void updateProfile(Gamer gamer);
+	
 	void addGamer(Gamer gamer);
 }

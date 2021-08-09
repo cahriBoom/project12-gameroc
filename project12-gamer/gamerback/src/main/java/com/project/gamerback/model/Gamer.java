@@ -28,10 +28,7 @@ public class Gamer {
 	private String server;
 
 	private String note;
-
-	@ManyToMany
-	private List<Videogame> list_games;
-
+	
 	public Gamer() {
 		this("", "", "", "");
 	}
@@ -92,16 +89,12 @@ public class Gamer {
 		this.email = email;
 	}
 
-	public List<Videogame> getList_games() {
-		return list_games;
-	}
-
-	public void setList_games(List<Videogame> list_games) {
-		this.list_games = list_games;
-	}
-
 	public String getPassword() {
 		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 

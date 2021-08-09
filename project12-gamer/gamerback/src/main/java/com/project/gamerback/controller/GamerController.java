@@ -24,10 +24,16 @@ public class GamerController {
 	@PostMapping(value = "/subscribe")
 	public String addClientSubscribe(@RequestBody Gamer gamer) {
 		String mail = gamer.getEmail();
-		if (gamerService.getByMail(mail) == null) {
+		if (gamerService.getByMail(mail).isEmpty()) {
 			gamerService.addGamer(gamer);
 			return "OK";
 		}
 		return "NOK";
+	}
+	
+	@PostMapping(value="/edit_profile")
+	public void updateProfileGamer(@RequestBody Gamer gamer) {
+		gamerService.updateProfile(gamer);
+		
 	}
 }

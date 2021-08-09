@@ -16,14 +16,27 @@ public class GamerServiceImp implements GamerService {
 	private GamerRepository gamerRepository;
 
 	@Override
-	public Optional<Gamer> getByMail(String mail) {
-		return gamerRepository.findByEmail(mail);
+	public Optional<Gamer> getByMail(String email) {
+		return gamerRepository.findByEmail(email);
 	}
 
+	@Override
+	public Optional<Gamer> getById(int id) {
+		return gamerRepository.findById(id);
+	}
+	
 	@Override
 	public void addGamer(Gamer gamer) {
 		gamer.setNote("NEW");
 		gamerRepository.save(gamer);
 	}
+
+	@Override
+	public void updateProfile(Gamer gamer) {
+		gamerRepository.save(gamer);
+		
+	}
+
+
 
 }
