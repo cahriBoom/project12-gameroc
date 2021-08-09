@@ -25,7 +25,6 @@ public class GamerController {
 	@Autowired
 	private GamerService gamerService;
 
-	
 	@GetMapping(value = "/login")
 	public ModelAndView getLogin(Model model) {
 		model.addAttribute("gamer", new GamerBean());
@@ -66,12 +65,30 @@ public class GamerController {
 			return "/home";
 		}
 	}
-	
-	@GetMapping(value="/welcome/{mail}")
+
+	@GetMapping(value = "/welcome/{mail}")
 	public String getWelcome(@PathVariable("mail") String mail, Model model) {
 		GamerBean gamer = gamerService.getByMail(mail);
 		model.addAttribute("gamer", gamer);
 		return "/welcome";
+	}
+
+	@GetMapping(value = "/edit_profile")
+	public String getEditProfile(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String mail = auth.getName();
+		GamerBean gamer = gamerService.getByMail(mail);
+		model.addAttribute("gamer", gamer);
+		return "/edit_profile";
+	}
+
+	@PostMapping(value = "/edit_profile")
+	public String postEditProfile(Model model, @ModelAttribute("gamer") GamerBean gamer) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String mail = auth.getName();
+		gamerService.updateGamer(gamer, mail);
+		model.addAttribute("gamer", gamer);
+		return "/edit_profile";
 	}
 
 }

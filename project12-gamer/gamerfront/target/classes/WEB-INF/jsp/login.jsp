@@ -8,6 +8,7 @@
 <head>
 <%@ include file="header.jsp"%>
 </head>
+<%@ include file="menu.jsp" %>
 <body>
 	<div class="container">
 		<div class="row justify-content-center">
@@ -28,8 +29,7 @@
 							</div>
 							<div class="form-group">
 								<label for="password">Password</label>
-								<form:input id="password" path="password" autocomplete=""
-									class="form-control" type="password" />
+								<form:input id="password" path="password" class="form-control" type="password" />
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary btn-block">

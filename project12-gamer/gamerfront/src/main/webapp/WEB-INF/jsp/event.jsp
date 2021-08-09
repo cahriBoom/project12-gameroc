@@ -7,6 +7,7 @@
     <head>
 		<%@ include file="header.jsp"%>	
     </head>
+    <%@ include file="menu.jsp" %>
     <body>
         <!-- Header-->
         <header class="py-5">

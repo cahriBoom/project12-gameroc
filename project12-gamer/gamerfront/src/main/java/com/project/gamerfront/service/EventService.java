@@ -9,4 +9,6 @@ public interface EventService {
 	List<EventBean> getAllEvents();
 	
 	EventBean getEventById(int id);
+	
+	void addEvent(EventBean event);
 }

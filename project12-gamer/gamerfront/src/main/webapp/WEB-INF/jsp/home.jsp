@@ -7,7 +7,7 @@
 <head>
 <%@ include file="header.jsp"%>
 </head>
-
+<%@ include file="menu.jsp" %>
 <body>
 	<main role="main">
 		<c:set var="current" value="${current}" scope="session" />

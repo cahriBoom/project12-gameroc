@@ -37,4 +37,15 @@ public class GamerServiceImp implements GamerService {
 		return gamerProxy.getGamerByMail(mail);
 	}
 
+	@Override
+	public void updateGamer(GamerBean gamer, String mail) {
+		GamerBean updated_gamer =gamerProxy.getGamerByMail(mail);
+		updated_gamer.setGamertag(gamer.getGamertag());
+		updated_gamer.setEmail(gamer.getEmail());
+		updated_gamer.setPassword(gamer.getPassword());
+		updated_gamer.setServer(gamer.getServer());
+		updated_gamer.setPlateform(gamer.getPlateform());
+		gamerProxy.updateProfileGamer(updated_gamer);
+	}
+
 }

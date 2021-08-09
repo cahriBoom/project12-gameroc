@@ -26,8 +26,6 @@ public class GamerBean implements Serializable, UserDetails{
 
 	private String note;
 
-	private List<VideogameBean> list_games;
-
 	public GamerBean() {
 		this("", "", "", "", "");
 	}
@@ -87,14 +85,6 @@ public class GamerBean implements Serializable, UserDetails{
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public List<VideogameBean> getList_games() {
-		return list_games;
-	}
-
-	public void setList_games(List<VideogameBean> list_games) {
-		this.list_games = list_games;
 	}
 
 	public String getPassword() {

@@ -25,4 +25,9 @@ public class EventServiceImp implements EventService{
 		return gamerProxy.getEventById(id);
 	}
 
+	@Override
+	public void addEvent(EventBean event) {
+		gamerProxy.addNewEvent(event);		
+	}
+
 }
