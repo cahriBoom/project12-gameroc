@@ -20,6 +20,12 @@ public class VideogameServiceImp implements VideogameService{
 		return videogameRepository.findAll();
 	}
 
+	@Override
+	public Videogame findByNomAndPlateform(String nom, String plateform) {
+		Videogame videogame = videogameRepository.findByNomAndPlateform(nom, plateform).get();
+		return videogame;
+	}
+
 	
 	
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.gamerback.model.Event;
+import com.project.gamerback.model.Videogame;
 import com.project.gamerback.service.EventService;
 
 @RestController
@@ -30,7 +31,13 @@ public class EventController {
 	
 	@PostMapping(value="/post_event")
 	void addNewEvent(@RequestBody Event event) {
-		
+		eventService.addNewEvent(event);
 	}
+	
+	@PostMapping(value="/search_event")
+	List<Event> getEventByVideoGame(@RequestBody Videogame videogame){
+		return eventService.getEventByGame(videogame);
+	}
+	
 	
 }

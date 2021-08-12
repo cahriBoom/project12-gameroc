@@ -1,11 +1,13 @@
 package com.project.gamerback.service.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.gamerback.model.Event;
+import com.project.gamerback.model.Videogame;
 import com.project.gamerback.repository.EventRepository;
 import com.project.gamerback.service.EventService;
 
@@ -32,13 +34,33 @@ public class EventServiceImp implements EventService{
 
 	@Override
 	public void calculateSpotsTaken(Event event) {
+		int maximum = event.getMaximum_players();
 		int participants = event.getParticipants().size();
-		int spots_available = event.getPlayer_needed() - participants;
-		if (spots_available<=0) {
-			spots_available=0;
+		int spots = maximum - participants;
+		if(spots<=0) {
+			spots=0;
 		}
-		event.setSpots(spots_available);
+		event.setSpots(spots);
 		eventRepository.save(event);
+	}
+
+	@Override
+	public void addNewEvent(Event event) {
+		eventRepository.save(event);
+	}
+
+	@Override
+	public List<Event> getEventByGame(Videogame videogame) {
+		String name = videogame.getNom();
+		List<Event> all_events = eventRepository.findAll();
+		List<Event> events = new ArrayList<>();
+		
+		for(Event e:all_events) {
+			if(e.getVideogame_name().equals(name)) {
+				events.add(e);
+			}
+		}
+		return events;
 	}
 
 }

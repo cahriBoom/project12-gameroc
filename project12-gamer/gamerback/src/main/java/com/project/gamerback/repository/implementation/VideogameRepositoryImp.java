@@ -185,4 +185,10 @@ public class VideogameRepositoryImp implements VideogameRepository{
 		return false;
 	}
 
+	@Override
+	public Optional<Videogame> findByNomAndPlateform(String nom, String plateform) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

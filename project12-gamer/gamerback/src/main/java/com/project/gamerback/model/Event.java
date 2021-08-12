@@ -20,31 +20,39 @@ public class Event {
 	private int id;
 
 	private Date debut;
-	
+
+	private Date fin;
+
 	private int spots;
-	
+
+	private int maximum_players;
+
 	private int player_needed;
 
 	private String description;
-	
+
 	private String title;
-	
+
 	private String plateform;
-		
+
 	@ManyToMany
 	private List<Gamer> participants;
 
 	@ManyToOne
 	private Videogame videogame;
 
+	private String videogame_name;
+
 	public Event() {
-		this(new Date(), "", "");
+		this(new Date(), new Date(), "", "", "");
 	}
 
-	public Event(Date date, String description, String title) {
-		this.debut = date;
+	public Event(Date debut, Date fin, String description, String title, String vg_name) {
+		this.debut = debut;
+		this.fin = fin;
 		this.description = description;
 		this.title = title;
+		this.videogame_name = vg_name;
 	}
 
 	public int getId() {
@@ -118,7 +126,29 @@ public class Event {
 	public void setPlayer_needed(int player_needed) {
 		this.player_needed = player_needed;
 	}
-	
-	
-	
+
+	public String getVideogame_name() {
+		return videogame_name;
+	}
+
+	public void setVideogame_name(String videogame_name) {
+		this.videogame_name = videogame_name;
+	}
+
+	public int getMaximum_players() {
+		return maximum_players;
+	}
+
+	public void setMaximum_players(int maximum_players) {
+		this.maximum_players = maximum_players;
+	}
+
+	public Date getFin() {
+		return fin;
+	}
+
+	public void setFin(Date fin) {
+		this.fin = fin;
+	}
+
 }
