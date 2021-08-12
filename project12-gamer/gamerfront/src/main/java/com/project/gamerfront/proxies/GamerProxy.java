@@ -38,4 +38,10 @@ public interface GamerProxy {
 	// Proxy Videogame
 	@GetMapping(value = "/games")
 	List<VideogameBean> getAllVideogames();
+	
+	@PostMapping(value= "/search_event")
+	List<EventBean> getEventByGame(@RequestBody VideogameBean videogame);
+	
+	@GetMapping(value = "/game/{nom}&{plateform}")
+	VideogameBean getVideogameByNomAndPlateform(@PathVariable("nom") String nom, @PathVariable("plateform") String plateform);
 }

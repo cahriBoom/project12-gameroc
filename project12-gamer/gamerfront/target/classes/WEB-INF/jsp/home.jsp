@@ -16,7 +16,7 @@
 			<div class="container">
 				<h1 class="jumbotron-heading">Gamer OC</h1>
 				<p class="lead text-muted">Welcome to Gamer OC. A social
-					plateform where you can find poeple to play with. For a better
+					plateform where you can find people to play with. For a better
 					experience. Have fun and enjoy.</p>
 				<p>
 					<a href="/Gamer/search_event" class="btn btn-primary my-2">Search Teammates</a>

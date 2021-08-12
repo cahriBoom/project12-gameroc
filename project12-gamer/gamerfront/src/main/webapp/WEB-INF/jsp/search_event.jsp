@@ -23,14 +23,20 @@
 				</p>
 			</div>
 		</section>
-
+		<form:form method="post" modelAttribute="videogame" action="">
+			<div class="row">
+		        <div class="col-lg-4 col-lg-offset-4">
+		            <form:input type="search" id="search" path="nom" class="form-control" placeholder="Search..." />
+		        </div>
+	    	</div>
+		</form:form>
 		<div class="album py-5 bg-light">
 			<div class="container">
 				<div class="row">
 				  <c:forEach var="events" items="${ events }">
 				  	<c:if test="${events.videogame.plateform == 'Playstation'}">
-						<div class="col-md-4">
-							<div class="card mb-4 box-shadow">
+						<div class="result col-md-4">
+							<div class="card mb-4 box-shadow bg-primary">
 								<img class="card-img-top" src="./${ events.videogame.nom }.jpg" alt="${ events.videogame.nom }">
 								<div class="card-body">
 									<p class="card-text">
@@ -38,17 +44,18 @@
 									</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
-											<a type="button" href="/Gamer/event/${ events.id }" class="btn btn-sm btn-outline-secondary">View</a>
+											<a type="button" href="/Gamer/event/${ events.id }" class="btn btn-sm">View</a>
 										</div>
-										<small class="text-muted">${ events.spots } spots</small>
+										<small>${ events.spots } spots</small>
+										<small>${ events.plateform }</small>
 									</div>
 								</div>
 							</div>
 						</div>
 					</c:if>
 					<c:if test="${events.videogame.plateform == 'Xbox'}">
-						<div class="col-md-4">
-							<div class="card mb-4 box-shadow">
+						<div class="result col-md-4">
+							<div class="card mb-4 box-shadow bg-success">
 								<img class="card-img-top" src="./${ events.videogame.nom }.jpg" alt="${ events.videogame.nom }">
 								<div class="card-body">
 									<p class="card-text">
@@ -56,17 +63,18 @@
 									</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
-											<a type="button" href="/Gamer/event/${ events.id }" class="btn btn-sm btn-outline-secondary">View</a>
+											<a type="button" href="/Gamer/event/${ events.id }" class="btn btn-sm">View</a>
 										</div>
-										<small class="text-muted">${ events.spots } spots</small>
+										<small>${ events.spots } spots</small>
+										<small>${ events.plateform }</small>
 									</div>
 								</div>
 							</div>
 						</div>
 					</c:if>
 					<c:if test="${events.videogame.plateform == 'PC'}">
-						<div class="col-md-4">
-							<div class="card mb-4 box-shadow">
+						<div class="result col-md-4">
+							<div class="card mb-4 box-shadow bg-secondary">
 								<img class="card-img-top" src="./${ events.videogame.nom }.jpg" alt="${ events.videogame.nom }">
 								<div class="card-body">
 									<p class="card-text">
@@ -74,9 +82,10 @@
 									</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
-											<a type="button" href="/Gamer/event/${ events.id }" class="btn btn-sm btn-outline-secondary">View</a>
+											<a type="button" href="/Gamer/event/${ events.id }" class="btn btn-sm">View</a>
 										</div>
-										<small class="text-muted">${ events.spots } spots</small>
+										<small>${ events.spots } spots</small>
+										<small>${ events.plateform }</small>
 									</div>
 								</div>
 							</div>
@@ -89,6 +98,5 @@
 
 	</main>
 	<%@ include file="footer.jsp"%>
-
 </body>
 </html>

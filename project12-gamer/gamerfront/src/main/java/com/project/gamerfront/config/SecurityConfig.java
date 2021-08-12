@@ -53,7 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         .and()
         .authorizeRequests()
         .antMatchers("/post_event*/**").authenticated()
-        .antMatchers("/search_event*/**").authenticated()
         .antMatchers("/welcome*/**").authenticated()
         .antMatchers("/edit_profile*/**").authenticated()
         .anyRequest().permitAll();

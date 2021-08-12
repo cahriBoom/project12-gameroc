@@ -36,11 +36,23 @@
 								<div class="form-group col-md-6">
 									<label for="game">Game</label>
 									<form:select id="inputState" required="required"
-										path="videogame" class="form-control">
+										path="videogame_name" class="form-control">
 										<option selected="">Choose...</option>
 										<c:forEach var="videogames" items="${ videogames }">
-											<option>${ videogames.nom }-${ videogames.plateform }</option>
+											<option>${ videogames }</option>
 										</c:forEach>
+									</form:select>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="plateform">Plateform</label>
+									<form:select id="inputState" required="required"
+										path="plateform" class="form-control">
+										<option selected="">Choose...</option>
+										<option>PC</option>
+										<option>Playstation</option>
+										<option>Xbox</option>
 									</form:select>
 								</div>
 							</div>
@@ -58,7 +70,8 @@
 							</div>
 							
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary btn-block">
+								<small>Each Events will only stay for 1 day before it's get removed</small>
+								<button type="submit" name="submit" class="btn btn-primary btn-block">
 									Post Event</button>
 							</div>
 						</form:form>

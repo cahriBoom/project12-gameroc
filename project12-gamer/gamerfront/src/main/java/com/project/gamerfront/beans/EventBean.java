@@ -3,15 +3,23 @@ package com.project.gamerfront.beans;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class EventBean {
 
 	private int id;
 
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Date debut;
 
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	private Date fin;
+	
 	private String description;
 	
 	private int spots;
+	
+	private int maximum_player;
 	
 	private int player_needed;
 	
@@ -21,16 +29,20 @@ public class EventBean {
 	
 	private VideogameBean videogame;
 	
+	private String videogame_name;
+	
 	private List<GamerBean> participants;
 
 	public EventBean() {
-		this(new Date(), "", "");
+		this(new Date(), new Date(), "", "", "");
 	}
 
-	public EventBean(Date date, String desc, String title) {
-		this.debut = date;
+	public EventBean(Date debut, Date fin, String desc, String title, String vg_name) {
+		this.debut = debut;
+		this.fin = fin;
 		this.description = desc;
-		this.title = title;;
+		this.title = title;
+		this.videogame_name=vg_name;
 		
 	}
 
@@ -105,6 +117,31 @@ public class EventBean {
 	public void setPlayer_needed(int player_needed) {
 		this.player_needed = player_needed;
 	}
+
+	public String getVideogame_name() {
+		return videogame_name;
+	}
+
+	public void setVideogame_name(String videogame_name) {
+		this.videogame_name = videogame_name;
+	}
+
+	public int getMaximum_player() {
+		return maximum_player;
+	}
+
+	public void setMaximum_player(int maximum_player) {
+		this.maximum_player = maximum_player;
+	}
+
+	public Date getFin() {
+		return fin;
+	}
+
+	public void setFin(Date fin) {
+		this.fin = fin;
+	}
+	
 	
 	
 }
