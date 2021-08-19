@@ -3,7 +3,7 @@ package com.project.gamerback.service;
 import java.util.List;
 
 import com.project.gamerback.model.Event;
-import com.project.gamerback.model.Videogame;
+import com.project.gamerback.model.Gamer;
 
 public interface EventService {
 
@@ -14,6 +14,8 @@ public interface EventService {
 	void addNewEvent(Event event);
 	
 	void calculateSpotsTaken(Event event);
+		
+	List<Event> searchEvent(String search);
 	
-	List<Event> getEventByGame(Videogame videogame);
+	void participateToEvent(Event event, Gamer gamer);
 }

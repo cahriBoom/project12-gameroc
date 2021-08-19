@@ -20,6 +20,13 @@ public class GamerController {
 	public Gamer getGamerByMail(@PathVariable("mail") String mail) {
 		return gamerService.getByMail(mail).get();
 	}
+	
+	@PostMapping(value="/welcome/{mail}")
+	public void postVoteForGamer(@PathVariable("mail") String mail, @RequestBody Gamer gamer) {
+		
+		
+		
+	}
 
 	@PostMapping(value = "/subscribe")
 	public String addClientSubscribe(@RequestBody Gamer gamer) {

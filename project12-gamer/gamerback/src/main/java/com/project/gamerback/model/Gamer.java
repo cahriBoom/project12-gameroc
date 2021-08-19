@@ -24,10 +24,17 @@ public class Gamer {
 	private String gamertag;
 
 	private String plateform;
+	
+	private int good_rating;
+	
+	private int bad_rating;
 
 	private String server;
 
 	private String note;
+	
+	@ManyToMany
+	private List<Gamer> votedFor;
 	
 	public Gamer() {
 		this("", "", "", "");
@@ -95,6 +102,30 @@ public class Gamer {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public int getGood_rating() {
+		return good_rating;
+	}
+
+	public void setGood_rating(int good_rating) {
+		this.good_rating = good_rating;
+	}
+
+	public int getBad_rating() {
+		return bad_rating;
+	}
+
+	public void setBad_rating(int bad_rating) {
+		this.bad_rating = bad_rating;
+	}
+
+	public List<Gamer> getVotedFor() {
+		return votedFor;
+	}
+
+	public void setVotedFor(List<Gamer> votedFor) {
+		this.votedFor = votedFor;
 	}
 
 

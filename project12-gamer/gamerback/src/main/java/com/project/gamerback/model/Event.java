@@ -35,13 +35,16 @@ public class Event {
 
 	private String plateform;
 
+	@ManyToOne
+	private Gamer host;
+	
 	@ManyToMany
 	private List<Gamer> participants;
 
 	@ManyToOne
 	private Videogame videogame;
 
-	private String videogame_name;
+	private String vgname;
 
 	public Event() {
 		this(new Date(), new Date(), "", "", "");
@@ -52,7 +55,7 @@ public class Event {
 		this.fin = fin;
 		this.description = description;
 		this.title = title;
-		this.videogame_name = vg_name;
+		this.vgname = vg_name;
 	}
 
 	public int getId() {
@@ -127,12 +130,12 @@ public class Event {
 		this.player_needed = player_needed;
 	}
 
-	public String getVideogame_name() {
-		return videogame_name;
+	public String getVgname() {
+		return vgname;
 	}
 
-	public void setVideogame_name(String videogame_name) {
-		this.videogame_name = videogame_name;
+	public void setVgname(String videogame_name) {
+		this.vgname = videogame_name;
 	}
 
 	public int getMaximum_players() {
@@ -151,4 +154,13 @@ public class Event {
 		this.fin = fin;
 	}
 
+	public Gamer getHost() {
+		return host;
+	}
+
+	public void setHost(Gamer host) {
+		this.host = host;
+	}
+
+	
 }

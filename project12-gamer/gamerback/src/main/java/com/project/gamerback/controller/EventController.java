@@ -10,14 +10,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.gamerback.model.Event;
+import com.project.gamerback.model.Gamer;
 import com.project.gamerback.model.Videogame;
 import com.project.gamerback.service.EventService;
+import com.project.gamerback.service.VideogameService;
 
 @RestController
 public class EventController {
 
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	private VideogameService videogameService;
 	
 	@GetMapping(value="/events")
 	public List<Event> getAllEvents(){
@@ -29,15 +34,33 @@ public class EventController {
 		return eventService.getById(id);
 	}
 	
+	@PostMapping(value="/event/{id}")
+	void postJoinGroup(@PathVariable("id") int id, @RequestBody Gamer gamer) {
+		Event event = eventService.getById(id);
+		eventService.participateToEvent(event, gamer);
+	}
+	
 	@PostMapping(value="/post_event")
 	void addNewEvent(@RequestBody Event event) {
+		String videogame_name = event.getVgname();
+		String plateform = event.getPlateform();
+		int maximum_players = event.getPlayer_needed();
+		if(videogame_name.equals("Halo")) {
+			plateform = "Xbox";
+		}
+		event.setMaximum_players(maximum_players);
+		Videogame videogame = videogameService.findByNomAndPlateform(videogame_name, plateform);
+		
+		event.setVideogame(videogame);
 		eventService.addNewEvent(event);
 	}
 	
 	@PostMapping(value="/search_event")
 	List<Event> getEventByVideoGame(@RequestBody Videogame videogame){
-		return eventService.getEventByGame(videogame);
+		String recherche = videogame.getNom();
+		return eventService.searchEvent(recherche);
 	}
 	
+
 	
 }
