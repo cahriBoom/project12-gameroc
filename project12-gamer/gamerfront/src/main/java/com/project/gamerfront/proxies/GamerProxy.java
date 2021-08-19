@@ -24,10 +24,16 @@ public interface GamerProxy {
 
 	@GetMapping(value = "/event/{id}")
 	EventBean getEventById(@PathVariable("id") int id);
+	
+	@PostMapping(value="/event/{id}")
+	void postJoinGroup(@PathVariable("id") int id, @RequestBody GamerBean gamer);
 
 	// Proxy Gamer
 	@GetMapping(value = "/welcome/{mail}")
 	GamerBean getGamerByMail(@PathVariable("mail") String mail);
+	
+	@PostMapping(value="/welcome/{mail}")
+	void postVoteForGamer(@PathVariable("mail") String mail, @RequestBody GamerBean gamer);
 
 	@PostMapping(value = "/subscribe")
 	String addGamerSubscribe(@RequestBody GamerBean gamer);
@@ -38,10 +44,8 @@ public interface GamerProxy {
 	// Proxy Videogame
 	@GetMapping(value = "/games")
 	List<VideogameBean> getAllVideogames();
-	
-	@PostMapping(value= "/search_event")
+
+	@PostMapping(value = "/search_event")
 	List<EventBean> getEventByGame(@RequestBody VideogameBean videogame);
-	
-	@GetMapping(value = "/game/{nom}&{plateform}")
-	VideogameBean getVideogameByNomAndPlateform(@PathVariable("nom") String nom, @PathVariable("plateform") String plateform);
+
 }

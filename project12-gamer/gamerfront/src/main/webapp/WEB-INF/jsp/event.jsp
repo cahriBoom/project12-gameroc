@@ -8,6 +8,20 @@
 		<%@ include file="header.jsp"%>	
     </head>
     <%@ include file="menu.jsp" %>
+    <style>
+    table,
+	thead,
+	tr,
+	tbody,
+	th,
+	td {
+	  text-align: center;
+	}
+
+	.table td {
+	  text-align: center;
+	}
+    </style>
     <body>
         <!-- Header-->
         <header class="py-5">
@@ -16,7 +30,14 @@
                     <div class="m-4 m-lg-5">
                         <h1 class="display-5 fw-bold">${ event.title }</h1>
                         <p class="fs-4">${ event.description }</p>
-                        <a class="btn btn-primary btn-lg" href="#!">Join Group</a>
+                    	<form:form method="post" modelAttribute="gamer" action="">
+                    		<c:if test="${isEligible}">
+                        		<button type="submit" class="btn btn-primary btn-lg">Join Group</button>
+	                        </c:if>
+	                        <c:if test="${!isEligible}">
+	                        	<button type="submit" class="disabled btn btn-primary btn-lg">Join Group</button>
+	                        </c:if>
+                    	</form:form>    
                     </div>
                 </div>
             </div>
@@ -26,19 +47,27 @@
             <div class="container px-lg-5">
                 <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
                     <div class="m-4 m-lg-5">
-                    	<ul class="list-group">
-	                    	<c:forEach var="gamers" items="${ gamers }">
-	                    		<c:if test="${gamers.plateform == 'Playstation'}">
-	                    			<li class="list-group-item list-group-item-primary"><h2>${gamers.gamertag} -- ${gamers.server }</h2></li>
-	                    		</c:if>
-	                    		<c:if test="${gamers.plateform == 'PC'}">
-	                    			<li class="list-group-item list-group-item-dark"><h2>${gamers.gamertag} -- ${gamers.server }</h2></li>
-	                    		</c:if>
-	                    		<c:if test="${gamers.plateform == 'Xbox'}">
-	                    			<li class="list-group-item list-group-item-success"><h2>${gamers.gamertag} -- ${gamers.server }</h2></li>
-	                    		</c:if>
-	                    	</c:forEach>  
-                    	</ul>
+                    	<table class="table">
+                    		<thead class="thead-dark">
+	                    		<tr>
+	                    			<th scope="col"><h2>Gamertag</h2></th>
+	                    			<th scope="col"><h2>Server</h2></th>
+	                    			<th scope="col"><h2>Grade</h2></th>
+	                    		</tr>
+                    		</thead>
+                    		<tbody>
+                    			<c:forEach var="gamers" items="${ gamers }">
+	                    			<tr>
+	                    				<td><h3>${gamers.gamertag}</h3></td>
+	                    				<td><h3>${gamers.server }</h3></td>
+	                    				<td><h3>${gamers.note }</h3></td>
+	                    			</tr>
+                    			</c:forEach> 
+                    		</tbody>
+                    		
+                    	</table>
+                    	
+                    	
                     </div>
                 </div>
             </div>

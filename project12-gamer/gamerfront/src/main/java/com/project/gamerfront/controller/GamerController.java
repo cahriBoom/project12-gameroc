@@ -1,5 +1,7 @@
 package com.project.gamerfront.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,7 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.gamerfront.beans.EventBean;
 import com.project.gamerfront.beans.GamerBean;
+import com.project.gamerfront.service.EventService;
 import com.project.gamerfront.service.GamerService;
 
 @Controller
@@ -24,6 +28,9 @@ public class GamerController {
 
 	@Autowired
 	private GamerService gamerService;
+
+	@Autowired
+	private EventService eventService;
 
 	@GetMapping(value = "/login")
 	public ModelAndView getLogin(Model model) {
@@ -66,10 +73,37 @@ public class GamerController {
 		}
 	}
 
+	// PERMETTRE AU JOUEUR UN FOIS CONNECTER DE NOTER LES JOUEURS APPARAISSANT SUR
+	// LA LISTE
+	// UN GAMER NE PEUX VOTER QU'UNE SEULE FOIS POUR UN AUTRE GAMER
+	// UNE FOIS VOTE L'OPTION DE VOTE EST RETIRER POUR CE GAMER EN QUESTION.
+	// AJOUTER A LA LISTE VOTEDFOR LA LISTE DE JOUEUR DONT LEQUEL LE GAMER A DEJA
+	// VOTE
+	// UNE FOIS LE VOTE EFFECTUER LE JOUEUR EST RETIRER DE LA LISTE DES JOUEURS RENCONTRER
+
 	@GetMapping(value = "/welcome/{mail}")
 	public String getWelcome(@PathVariable("mail") String mail, Model model) {
 		GamerBean gamer = gamerService.getByMail(mail);
+		List<EventBean> events = eventService.findEventsByGamer(gamer);
+		List<GamerBean> gamersMetRecently = gamerService.getGamerMet(events, gamer);
+		model.addAttribute("recent_gamers", gamersMetRecently);
 		model.addAttribute("gamer", gamer);
+		model.addAttribute("voted", new GamerBean());
+		return "/welcome";
+	}
+
+	@PostMapping(value = "/welcome/{mail}", params = "good_rating")
+	public String postWelcomeVoteForGoodRate(@PathVariable("mail") String mail, @ModelAttribute("voted") GamerBean voted, Model model) {
+		GamerBean user = gamerService.getByMail(mail);
+		
+		
+		return "/welcome";
+	}
+
+	@PostMapping(value = "/welcome/{mail}", params = "bad_rating")
+	public String postWelcomeVoteForBadRate(@PathVariable("mail") String mail, @ModelAttribute("voted") GamerBean voted, Model model) {
+		GamerBean user = gamerService.getByMail(mail);
+		
 		return "/welcome";
 	}
 

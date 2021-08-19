@@ -29,7 +29,9 @@ public class EventBean {
 	
 	private VideogameBean videogame;
 	
-	private String videogame_name;
+	private String vgname;
+	
+	private GamerBean host;
 	
 	private List<GamerBean> participants;
 
@@ -42,7 +44,7 @@ public class EventBean {
 		this.fin = fin;
 		this.description = desc;
 		this.title = title;
-		this.videogame_name=vg_name;
+		this.vgname=vg_name;
 		
 	}
 
@@ -118,12 +120,12 @@ public class EventBean {
 		this.player_needed = player_needed;
 	}
 
-	public String getVideogame_name() {
-		return videogame_name;
+	public String getVgname() {
+		return vgname;
 	}
 
-	public void setVideogame_name(String videogame_name) {
-		this.videogame_name = videogame_name;
+	public void setVgname(String videogame_name) {
+		this.vgname = videogame_name;
 	}
 
 	public int getMaximum_player() {
@@ -140,6 +142,14 @@ public class EventBean {
 
 	public void setFin(Date fin) {
 		this.fin = fin;
+	}
+
+	public GamerBean getHost() {
+		return host;
+	}
+
+	public void setHost(GamerBean host) {
+		this.host = host;
 	}
 	
 	

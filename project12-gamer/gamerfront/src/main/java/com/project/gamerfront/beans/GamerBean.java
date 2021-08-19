@@ -25,6 +25,12 @@ public class GamerBean implements Serializable, UserDetails{
 	private String server;
 
 	private String note;
+	
+	private int good_rating;
+	
+	private int bad_rating;
+	
+	private List<GamerBean> votedFor;
 
 	public GamerBean() {
 		this("", "", "", "", "");
@@ -93,6 +99,30 @@ public class GamerBean implements Serializable, UserDetails{
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public int getGood_rating() {
+		return good_rating;
+	}
+
+	public void setGood_rating(int good_rating) {
+		this.good_rating = good_rating;
+	}
+
+	public int getBad_rating() {
+		return bad_rating;
+	}
+
+	public void setBad_rating(int bad_rating) {
+		this.bad_rating = bad_rating;
+	}
+	
+	public List<GamerBean> getVotedFor() {
+		return votedFor;
+	}
+
+	public void setVotedFor(List<GamerBean> votedFor) {
+		this.votedFor = votedFor;
 	}
 
 	@Override

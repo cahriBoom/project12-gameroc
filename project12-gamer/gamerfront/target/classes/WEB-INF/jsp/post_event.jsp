@@ -36,7 +36,7 @@
 								<div class="form-group col-md-6">
 									<label for="game">Game</label>
 									<form:select id="inputState" required="required"
-										path="videogame_name" class="form-control">
+										path="vgname" class="form-control">
 										<option selected="">Choose...</option>
 										<c:forEach var="videogames" items="${ videogames }">
 											<option>${ videogames }</option>

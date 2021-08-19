@@ -35,10 +35,4 @@ public class VideogameServiceImp implements VideogameService{
 		list_games.addAll(set);
 		return list_games;
 	}
-
-	@Override
-	public VideogameBean getByNameAndPlateform(String name, String plateform) {
-		return gamerProxy.getVideogameByNomAndPlateform(name, plateform);
-	}
-
 }
