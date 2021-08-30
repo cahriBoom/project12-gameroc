@@ -15,46 +15,75 @@ import com.project.gamerback.model.Videogame;
 import com.project.gamerback.service.EventService;
 import com.project.gamerback.service.VideogameService;
 
+/**
+ * Contrôleur des objets du packages Event
+ */
 @RestController
 public class EventController {
-
+	
 	@Autowired
 	private EventService eventService;
 	
 	@Autowired
 	private VideogameService videogameService;
 	
+    /**
+     * Renvoie la liste des Comptes Comptables
+     * La méthode corrige les problèmes liées aux exclusivitées
+     * 
+     * @return {@link List}
+     */
 	@GetMapping(value="/events")
 	public List<Event> getAllEvents(){
-		return eventService.getAll();
+		videogameService.fixExclusivity();
+		List<Event> events = eventService.getAll();
+		return events;
 	}
 	
+    /**
+     * Renvoie l'Event suivant son numero
+     * 
+     * @param id : le numero de l'Event concerné
+     * @return {@link Event}
+     */
 	@GetMapping(value="event/{id}")
 	public Event getEventById(@PathVariable("id")int id) {
 		return eventService.getById(id);
 	}
 	
+    /**
+     * Ajoute ou supprime le gamer de l'event
+     * 
+     * @param id : le numero de l'Event concerné
+     * @param gamer : gamer concerné
+     */
 	@PostMapping(value="/event/{id}")
-	void postJoinGroup(@PathVariable("id") int id, @RequestBody Gamer gamer) {
+	void postUpdateGroup(@PathVariable("id") int id, @RequestBody Gamer gamer) {
 		Event event = eventService.getById(id);
-		eventService.participateToEvent(event, gamer);
+		eventService.updateGroupEvent(event, gamer);
 	}
 	
+    /**
+     * Ajoute a la base un nouvel event
+     * 
+     * @param Event : Event concerné
+     */
 	@PostMapping(value="/post_event")
 	void addNewEvent(@RequestBody Event event) {
 		String videogame_name = event.getVgname();
 		String plateform = event.getPlateform();
 		int maximum_players = event.getPlayer_needed();
-		if(videogame_name.equals("Halo")) {
-			plateform = "Xbox";
-		}
 		event.setMaximum_players(maximum_players);
 		Videogame videogame = videogameService.findByNomAndPlateform(videogame_name, plateform);
-		
 		event.setVideogame(videogame);
 		eventService.addNewEvent(event);
 	}
 	
+    /**
+     * Ajoute a la base un nouvel event
+     * 
+     * @param Event : Event concerné
+     */
 	@PostMapping(value="/search_event")
 	List<Event> getEventByVideoGame(@RequestBody Videogame videogame){
 		String recherche = videogame.getNom();

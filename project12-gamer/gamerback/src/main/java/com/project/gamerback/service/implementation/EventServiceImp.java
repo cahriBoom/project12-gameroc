@@ -11,15 +11,23 @@ import com.project.gamerback.model.Gamer;
 import com.project.gamerback.repository.EventRepository;
 import com.project.gamerback.service.EventService;
 
+/**
+ * Implementation du service Event
+ */
 @Service
 public class EventServiceImp implements EventService {
 
 	@Autowired
 	private EventRepository eventRepository;
-
+	
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Event> getAll() {
 		List<Event> events = eventRepository.findAll();
+		// Si il n'y a plus de place disponible l'event ne sera pas retourné dans la liste
 		for (Event e : events) {
 			this.calculateSpotsTaken(e);
 		}
@@ -27,11 +35,17 @@ public class EventServiceImp implements EventService {
 		return new_events;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Event getById(int id) {
 		return eventRepository.findById(id).get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void calculateSpotsTaken(Event event) {
 		int maximum = event.getMaximum_players();
@@ -44,17 +58,25 @@ public class EventServiceImp implements EventService {
 		eventRepository.save(event);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void addNewEvent(Event event) {
 		eventRepository.save(event);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Event> searchEvent(String search) {
 		List<Event> recherchePlateform = eventRepository.findByPlateformContaining(search);
 		List<Event> rechercheName = eventRepository.findByVgnameContaining(search);
 		List<Event> rechercheTitle = eventRepository.findByTitleContaining(search);
 		List<Event> searched_events = new ArrayList<>();
+		
+		// Vérifie si l'utilisateur a rentré un nom, une plateforme ou un titre
 		if (!recherchePlateform.isEmpty()) {
 			return recherchePlateform;
 		} else if (!rechercheName.isEmpty()) {
@@ -64,7 +86,22 @@ public class EventServiceImp implements EventService {
 		}
 		return searched_events;
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void updateGroupEvent(Event event, Gamer gamer) {
+		if(this.isAlreadyIn(event, gamer)) {
+			this.quittingEvent(event, gamer);
+		}else {
+			this.participateToEvent(event, gamer);
+		}
+	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void participateToEvent(Event event, Gamer gamer) {
 		List<Gamer> participants = event.getParticipants();
@@ -74,6 +111,40 @@ public class EventServiceImp implements EventService {
 		eventRepository.save(event);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void quittingEvent(Event event, Gamer gamer) {
+		List<Gamer> participants = event.getParticipants();
+		List<Gamer> new_participants = new ArrayList<>();
+		String username = gamer.getEmail();
+		int spots = event.getSpots();
+		for(Gamer g:participants) {
+			String g_mail= g.getEmail();
+			if(!g_mail.equals(username)) {
+				new_participants.add(g);
+			}
+		}
+		event.setSpots(spots+1);
+		event.setParticipants(new_participants);
+		eventRepository.save(event);
+	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isAlreadyIn(Event event, Gamer gamer) {	
+		List<Gamer> participants = event.getParticipants();
+		String username = gamer.getEmail();
+		for(Gamer g:participants) {
+			String g_mail= g.getEmail();
+			if(g_mail.equals(username)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

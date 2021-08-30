@@ -9,45 +9,73 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+/**
+ * Bean that's represent a Gamer
+ */
 @Entity
 public class Gamer {
 
+	// ==================== Attributs ====================
+	/**The numero */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_gamer")
 	private int id;
 
+	/**The email */
 	private String email;
 
+	/**The password */
 	private String password;
 
+	/**The gamertag */
 	private String gamertag;
 
+	/**The plateform */
 	private String plateform;
 	
+	/**The good rating receive by other players */
 	private int good_rating;
 	
+	/**The bad rating receive by other players */
 	private int bad_rating;
 
+	/**The server played on */
 	private String server;
 
+	/**The difference between good and bad rates */
 	private String note;
 	
+	/**The list of gamers already voted by */
 	@ManyToMany
 	private List<Gamer> votedFor;
 	
+	// ==================== Constructeurs ====================
+    /**
+     * Instantiates a new Gamer.
+     */
 	public Gamer() {
-		this("", "", "", "");
+		this("", "", "", "", "");
 	}
 
-	public Gamer(String email, String gamertag, String plateform, String server) {
+    /**
+     * Instantiates a new Gamer.
+     *
+     * @param email : the email
+     * @param gamertag : the gamertag
+     * @param password : the password
+     * @param plateform : the plateform
+     * @param server : the server
+     */
+	public Gamer(String email, String gamertag, String password, String plateform, String server) {
 		this.email = email;
 		this.gamertag = gamertag;
+		this.password = password;
 		this.plateform = plateform;
 		this.server = server;
 	}
 
-	// Getters and Setters
+	// ==================== Getters/Setters ====================
 	public int getId() {
 		return id;
 	}
