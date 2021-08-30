@@ -56,7 +56,7 @@
 									</div>
 
 									<div class="form-group">
-										<label for="plateform">Plateform</label>
+										<label for="plateform">Platform</label>
 										<form:select id="plateform" required="required"
 											path="plateform" class="form-control">
 											<option selected="">Choose...</option>

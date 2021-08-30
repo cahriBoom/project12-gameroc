@@ -21,6 +21,8 @@
 									alt="Admin" class="rounded-circle" width="150">
 								<div class="mt-3">
 									<h4>${ gamer.gamertag }</h4>
+									<h5 class="text-success">Good : ${ gamer.good_rating }</h5>
+									<h5 class="text-danger">Bad : ${ gamer.bad_rating }</h5>
 									<p class="text-secondary mb-1">Rank : ${ gamer.note }</p>
 								</div>
 							</div>
@@ -40,7 +42,7 @@
 							<hr>
 							<div class="row">
 								<div class="col-sm-3">
-									<h4 class="mb-0">Plateform</h4>
+									<h4 class="mb-0">Platform</h4>
 								</div>
 								<div class="col-sm-9 text-secondary">${ gamer.plateform }</div>
 							</div>
@@ -62,7 +64,7 @@
 				</div>
 				<div class="col-md-8">
 					<h2>Recents players met</h2>
-					<form:form method="post" modelAttribute="voted" action="">
+					<form:form method="post" modelAttribute="voted" action="">				
 						<table class="table">
 	                    	<thead class="thead-dark">
 		                    	<tr>
@@ -73,13 +75,14 @@
 	                    	</thead>
 	                    	<tbody>
 	                    		<c:forEach var="recent_gamers" items="${ recent_gamers }">
+	                    		<form:input type="hidden" name="email" path="id" value="${recent_gamers.id}" />
 		                    		<tr>
 		                    			<td><h4>${recent_gamers.gamertag}</h4></td>
 		                    			<td><h4>${recent_gamers.server }</h4></td>
 		                    			<td>
 			                    			<h4>  		
-			                    				<form:input type="submit" name="good_rating" path="good_rating" class="btn btn-success" />
-												<form:input type="submit" name="bad_rating" path="bad_rating" class="btn btn-danger" />
+			                    				<form:input value="${recent_gamers.good_rating}" type="submit" name="good_rating" path="good_rating" class="btn btn-success" />
+												<form:input value="${recent_gamers.bad_rating}" type="submit" name="bad_rating" path="bad_rating" class="btn btn-danger" />
 			                    			</h4>
 		                    			</td>
 		                    		</tr>

@@ -30,14 +30,17 @@
                     <div class="m-4 m-lg-5">
                         <h1 class="display-5 fw-bold">${ event.title }</h1>
                         <p class="fs-4">${ event.description }</p>
-                    	<form:form method="post" modelAttribute="gamer" action="">
+						<form:form method="post" modelAttribute="gamer" action="">
                     		<c:if test="${isEligible}">
                         		<button type="submit" class="btn btn-primary btn-lg">Join Group</button>
 	                        </c:if>
 	                        <c:if test="${!isEligible}">
 	                        	<button type="submit" class="disabled btn btn-primary btn-lg">Join Group</button>
 	                        </c:if>
-                    	</form:form>    
+	                        <c:if test="${isAlreadyIn}">
+	                        	<button type="submit" class="btn btn-primary btn-lg">Quit Group</button>
+	                        </c:if>
+                    	</form:form>   
                     </div>
                 </div>
             </div>

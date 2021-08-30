@@ -14,35 +14,52 @@ import com.project.gamerfront.beans.VideogameBean;
 import com.project.gamerfront.proxies.GamerProxy;
 import com.project.gamerfront.service.EventService;
 
+/**
+ * Implementation du service Event
+ */
 @Service("eventService")
 public class EventServiceImp implements EventService {
 
 	@Autowired
 	private GamerProxy gamerProxy;
 
-	@Override
-	public List<EventBean> allEventAvailable(List<EventBean> events) {
-		List<EventBean> event_available = new ArrayList<>();
-		for (EventBean e : events) {
-			int spots = e.getSpots();
-			if (spots >= 1) {
-				event_available.add(e);
-			}
-		}
-		return event_available;
-	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<EventBean> getAllEvents() {
 		List<EventBean> all_events = gamerProxy.getAllEvents();
 		return this.allEventAvailable(all_events);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<EventBean> allEventAvailable(List<EventBean> events) {
+		List<EventBean> event_available = new ArrayList<>();
+		Date today = Calendar.getInstance().getTime();
+		for (EventBean e : events) {
+			int spots = e.getSpots();
+			// Si l'event possède de place disponible et qu'il ne soit pas périmé
+			if (spots >= 1 && e.getFin().after(today)) {
+				event_available.add(e);
+			}
+		}
+		return event_available;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public EventBean getEventById(int id) {
 		return gamerProxy.getEventById(id);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void addEvent(EventBean event) {
 		Calendar cal = Calendar.getInstance();
@@ -57,6 +74,9 @@ public class EventServiceImp implements EventService {
 		gamerProxy.addNewEvent(event);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<EventBean> getEventsBySearch(VideogameBean videogame) {
 		List<EventBean> events = gamerProxy.getEventByGame(videogame);
@@ -64,6 +84,9 @@ public class EventServiceImp implements EventService {
 		return available_events;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isEligible(EventBean event, String username) {
 		Date today = Calendar.getInstance().getTime();
@@ -86,13 +109,17 @@ public class EventServiceImp implements EventService {
 			isHost = true;
 		}
 
+		// Si le gamer respecte toutes ces conditions alors il est Eligible pour le groupe
 		if (isLogged && isAvailable && isStillDated && !isHost && !isAlreadyIn) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isAlreadyIn(String current, EventBean event) {
 		List<GamerBean> participants = event.getParticipants();
@@ -105,6 +132,9 @@ public class EventServiceImp implements EventService {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<EventBean> RemoveOwnEvents(List<EventBean> events, String username) {
 		List<EventBean> host_event = new ArrayList<>();
@@ -117,12 +147,18 @@ public class EventServiceImp implements EventService {
 		return host_event;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void participateToEvent(GamerBean gamer, EventBean event) {
+	public void updateGroupEvent(GamerBean gamer, EventBean event) {
 		int id = event.getId();
-		gamerProxy.postJoinGroup(id, gamer);
+		gamerProxy.postUpdateGroup(id, gamer);
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<EventBean> findEventsByGamer(GamerBean gamer) {
 		List<EventBean> all_events = gamerProxy.getAllEvents();
@@ -138,6 +174,8 @@ public class EventServiceImp implements EventService {
 		}
 		return events_participated;
 	}
+
+	
 
 
 

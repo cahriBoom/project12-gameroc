@@ -20,6 +20,9 @@ import com.project.gamerfront.service.EventService;
 import com.project.gamerfront.service.GamerService;
 import com.project.gamerfront.service.VideogameService;
 
+/**
+ * Contrôleur des objets du packages Event
+ */
 @Controller
 public class EventController {
 
@@ -32,6 +35,10 @@ public class EventController {
 	@Autowired
 	private VideogameService videogameService;
 
+    /**
+     * Mapping pour la page de création d'Event
+     * 
+     */
 	@GetMapping(value = "/post_event")
 	public String getPostEvent(Model model) {
 		List<String> videogames_without_dupplicate = videogameService.getGamesWithoutDupplicate();
@@ -40,6 +47,11 @@ public class EventController {
 		return "/post_event";
 	}
 
+    /**
+     * Mapping pour le formulaire de création d'Event
+     * 
+     * @param event: nouvel Event crée
+     */
 	@PostMapping(value = "/post_event")
 	public String postPostEvent(Model model, @ModelAttribute("event") EventBean event) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -53,8 +65,11 @@ public class EventController {
 		return "/home";
 	}
 
-	//TODO/ RAJOUTER LA POSSIBILIE DE QUITTER LE GROUPE
-	
+    /**
+     * Mapping pour la page de description d'un Event
+     * 
+     * @param id: numero de l'Event 
+     */
 	@GetMapping(value = "/event/{id}")
 	public String getEventDescription(Model model, @PathVariable("id") int id) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -62,31 +77,46 @@ public class EventController {
 		EventBean event = eventService.getEventById(id);
 		List<GamerBean> gamers = event.getParticipants();
 		boolean isEligible = eventService.isEligible(event, username);
+		boolean isAlreadyIn = eventService.isAlreadyIn(username, event);
+		
 		model.addAttribute("isEligible", isEligible);
+		model.addAttribute("isAlreadyIn", isAlreadyIn);
 		model.addAttribute("gamers", gamers);
 		model.addAttribute("event", event);
-		model.addAttribute("gamer", new GamerBean());
+		model.addAttribute("host", new GamerBean());
 		return "/event";
 	}
-
+	
+    /**
+     * Mapping pour le formulaire d'entrée d'un joueur dans un groupe
+     * 
+     * @param id: numero de l'Event
+     * @param gamer: gamer voulant etre ajouter au groupe
+     */
 	@PostMapping(value = "/event/{id}")
-	public String postEventDescription(Model model, @PathVariable("id") int id, @ModelAttribute("gamer") GamerBean gamer) {
+	public String postEventJoinGroup(Model model, @PathVariable("id") int id, @ModelAttribute("host") GamerBean gamer) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		EventBean event = eventService.getEventById(id);
 		GamerBean current_gamer = gamerService.getByMail(username);
-		eventService.participateToEvent(current_gamer, event);
+		eventService.updateGroupEvent(current_gamer, event);
 		EventBean updatedEvent = eventService.getEventById(id);
 		List<GamerBean> gamers = updatedEvent.getParticipants();
-		
 		boolean isEligible = eventService.isEligible(updatedEvent, username);
+		boolean isAlreadyIn = eventService.isAlreadyIn(username, event);
+		
 		model.addAttribute("isEligible", isEligible);
+		model.addAttribute("isAlreadyIn", isAlreadyIn);
 		model.addAttribute("gamers", gamers);
 		model.addAttribute("event", updatedEvent);
-		model.addAttribute("gamer", new GamerBean());
+		model.addAttribute("host", new GamerBean());
 		return "/event";
 	}
-
+	
+    /**
+     * Mapping pour la page de recherche d'Event
+     * 
+     */
 	@GetMapping(value = "/search_event")
 	public String getSearchEvent(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -101,6 +131,11 @@ public class EventController {
 		return "/search_event";
 	}
 
+    /**
+     * Mapping pour le formulaire de recherche précise d'Event
+     * 
+     * @param videogame: Videogame lié à l'Event 
+     */
 	@PostMapping(value = "/search_event")
 	public String postSearchEvent(Model model, @ModelAttribute("videogame") VideogameBean videogame) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

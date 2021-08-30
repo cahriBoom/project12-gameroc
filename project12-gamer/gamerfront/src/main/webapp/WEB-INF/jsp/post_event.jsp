@@ -46,7 +46,7 @@
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
-									<label for="plateform">Plateform</label>
+									<label for="plateform">Platform</label>
 									<form:select id="inputState" required="required"
 										path="plateform" class="form-control">
 										<option selected="">Choose...</option>

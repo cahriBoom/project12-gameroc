@@ -9,33 +9,59 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.project.gamerfront.config.BCryptManagerUtil;
 
-
+/**
+ * Bean that's represent a Gamer
+ */
 public class GamerBean implements Serializable, UserDetails{
 
+	// ==================== Attributs ====================
+	/**The numero */
 	private int id;
 
+	/**The email */
 	private String email;
 
+	/**The password */
 	private String password;
 
+	/**The gamertag */
 	private String gamertag;
 
+	/**The platform */
 	private String plateform;
 
+	/**The server */
 	private String server;
 
+	/**The difference between good and bad rates */
 	private String note;
 	
+	/**The good rating receive by other players */
 	private int good_rating;
 	
+	/**The bad rating receive by other players */
 	private int bad_rating;
 	
+	/**The list of gamers already voted by */
 	private List<GamerBean> votedFor;
 
+	// ==================== Constructeurs ====================
+    /**
+     * Instantiates a new Gamer.
+     */
 	public GamerBean() {
 		this("", "", "", "", "");
 	}
 
+    /**
+     * Instantiates a new Gamer.
+     *
+     * @param email : the email
+     * @param gamertag : the gamertag
+     * @param plateform : the plateform
+     * @param server : the server
+     * @param password : the password
+     */
 	public GamerBean(String email, String gamertag, String plateform, String server, String password) {
 		this.email = email;
 		this.gamertag = gamertag;
@@ -44,7 +70,7 @@ public class GamerBean implements Serializable, UserDetails{
 		this.password = BCryptManagerUtil.passwordencoder().encode(password);
 	}
 
-	// Getters and Setters
+	// ==================== Getters/Setters ====================
 	public int getId() {
 		return id;
 	}
