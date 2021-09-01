@@ -37,6 +37,14 @@ public class VideogameServiceImp implements VideogameService{
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Videogame getById(int id) {
+		return videogameRepository.findById(id).get();
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Videogame findByNomAndPlateform(String nom, String plateform) {
 		Videogame videogame = videogameRepository.findByNomAndPlateform(nom, plateform).get();
 		return videogame;
@@ -78,5 +86,7 @@ public class VideogameServiceImp implements VideogameService{
 			}			
 		}
 	}
+
+
 
 }

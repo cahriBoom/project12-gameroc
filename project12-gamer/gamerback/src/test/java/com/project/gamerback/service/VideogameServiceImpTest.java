@@ -1,47 +1,104 @@
 package com.project.gamerback.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.project.gamerback.model.Videogame;
 
 import junit.framework.Assert;
 
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 public class VideogameServiceImpTest {
 
-	Videogame videogame = new Videogame("", "");
+	@Mock
+	private VideogameService mockService;
 
-	@Autowired
-	private VideogameService videogameService;
+	private List<Videogame> videogames = new ArrayList<Videogame>();
+	
+	private Videogame videogame = new Videogame("Minecraft", "PC");
+	
+	@Before
+	public void setUp() {
+		for (int i = 0; i < 3; i++) {
+			Videogame vg = new Videogame();
+			videogames.add(vg);
+		}
+	}
+	
+	@Test
+	public void testGetAllGames(){
+		// Arrange
+		this.setUp();
+		Mockito.when(mockService.getAllGames()).thenReturn(videogames);
+		
+		// Act
+		List<Videogame> all_games = mockService.getAllGames();
+		
+		// Assert
+		Assert.assertEquals(videogames.size(), all_games.size());
+		Mockito.verify(mockService).getAllGames();
+	}
+	
+	@Test
+	public void testFindByNomAndPlateform() {
+		// Arrange
+		Mockito.when(mockService.findByNomAndPlateform("nom", "platform")).thenReturn(videogame);
+		
+		// Act
+		Videogame actual = mockService.findByNomAndPlateform("nom", "platform");
 
+		// Assert
+		Assert.assertEquals(videogame, actual);
+		Mockito.verify(mockService).findByNomAndPlateform("nom", "platform");
+	}
+	
 	@Test
 	public void testIsExclusiveTrue() {
 		// Arrange
-		videogame.setExclusive("Xbox");
-
+		Mockito.when(mockService.isExclusive(videogame)).thenReturn(true);
+		
 		// Act
-		boolean isExclusive = videogameService.isExclusive(videogame);
+		boolean isExclu = mockService.isExclusive(videogame);
 
 		// Assert
-		Assert.assertEquals(true, isExclusive);
+		Assert.assertTrue(isExclu);
+		Mockito.verify(mockService).isExclusive(videogame);
 
 	}
 
 	@Test
 	public void testIsExclusiveFalse() {
 		// Arrange
-		videogame.setExclusive("none");
-
+		Mockito.when(mockService.isExclusive(videogame)).thenReturn(false);
+		
 		// Act
-		boolean isExclusive = videogameService.isExclusive(videogame);
+		boolean isExclu = mockService.isExclusive(videogame);
 
 		// Assert
-		Assert.assertEquals(false, isExclusive);
+		Assert.assertFalse(isExclu);
+		Mockito.verify(mockService).isExclusive(videogame);
+	}
+
+	@Test
+	public void testFixExclusivity() {
+		// Arrange
+		Mockito.doNothing().when(mockService).fixExclusivity();
+		
+		// Act
+		mockService.fixExclusivity();
+		
+		// Assert
+		Mockito.verify(mockService).fixExclusivity();
+		
 	}
 
 }

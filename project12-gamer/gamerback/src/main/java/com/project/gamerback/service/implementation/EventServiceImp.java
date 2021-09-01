@@ -19,18 +19,12 @@ public class EventServiceImp implements EventService {
 
 	@Autowired
 	private EventRepository eventRepository;
-	
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public List<Event> getAll() {
-		List<Event> events = eventRepository.findAll();
-		// Si il n'y a plus de place disponible l'event ne sera pas retourné dans la liste
-		for (Event e : events) {
-			this.calculateSpotsTaken(e);
-		}
 		List<Event> new_events = eventRepository.findAll();
 		return new_events;
 	}
@@ -47,7 +41,25 @@ public class EventServiceImp implements EventService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void calculateSpotsTaken(Event event) {
+	public void calculateSpotsTaken() {
+		List<Event> events = eventRepository.findAll();
+		for (Event e : events) {
+			int maximum = e.getMaximum_players();
+			int participants = e.getParticipants().size();
+			int spots = maximum - participants;
+			if (spots <= 0) {
+				spots = 0;
+			}
+			e.setSpots(spots);
+			eventRepository.save(e);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void addNewEvent(Event event) {
 		int maximum = event.getMaximum_players();
 		int participants = event.getParticipants().size();
 		int spots = maximum - participants;
@@ -62,8 +74,11 @@ public class EventServiceImp implements EventService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addNewEvent(Event event) {
-		eventRepository.save(event);
+	public void deleteEvent(Event event) {
+		Gamer host = event.getHost();
+		this.quittingEvent(event, host);
+		eventRepository.delete(event);
+
 	}
 
 	/**
@@ -75,7 +90,7 @@ public class EventServiceImp implements EventService {
 		List<Event> rechercheName = eventRepository.findByVgnameContaining(search);
 		List<Event> rechercheTitle = eventRepository.findByTitleContaining(search);
 		List<Event> searched_events = new ArrayList<>();
-		
+
 		// Vérifie si l'utilisateur a rentré un nom, une plateforme ou un titre
 		if (!recherchePlateform.isEmpty()) {
 			return recherchePlateform;
@@ -86,15 +101,15 @@ public class EventServiceImp implements EventService {
 		}
 		return searched_events;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void updateGroupEvent(Event event, Gamer gamer) {
-		if(this.isAlreadyIn(event, gamer)) {
+		if (this.isAlreadyIn(event, gamer)) {
 			this.quittingEvent(event, gamer);
-		}else {
+		} else {
 			this.participateToEvent(event, gamer);
 		}
 	}
@@ -107,7 +122,7 @@ public class EventServiceImp implements EventService {
 		List<Gamer> participants = event.getParticipants();
 		int spots = event.getSpots();
 		participants.add(gamer);
-		event.setSpots(spots-1);
+		event.setSpots(spots - 1);
 		eventRepository.save(event);
 	}
 
@@ -120,13 +135,13 @@ public class EventServiceImp implements EventService {
 		List<Gamer> new_participants = new ArrayList<>();
 		String username = gamer.getEmail();
 		int spots = event.getSpots();
-		for(Gamer g:participants) {
-			String g_mail= g.getEmail();
-			if(!g_mail.equals(username)) {
+		for (Gamer g : participants) {
+			String g_mail = g.getEmail();
+			if (!g_mail.equals(username)) {
 				new_participants.add(g);
 			}
 		}
-		event.setSpots(spots+1);
+		event.setSpots(spots + 1);
 		event.setParticipants(new_participants);
 		eventRepository.save(event);
 	}
@@ -135,12 +150,12 @@ public class EventServiceImp implements EventService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean isAlreadyIn(Event event, Gamer gamer) {	
+	public boolean isAlreadyIn(Event event, Gamer gamer) {
 		List<Gamer> participants = event.getParticipants();
 		String username = gamer.getEmail();
-		for(Gamer g:participants) {
-			String g_mail= g.getEmail();
-			if(g_mail.equals(username)) {
+		for (Gamer g : participants) {
+			String g_mail = g.getEmail();
+			if (g_mail.equals(username)) {
 				return true;
 			}
 		}

@@ -1,5 +1,7 @@
 package com.project.gamerback.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +28,10 @@ public class GamerController {
      */
 	@GetMapping(value = "/home")
 	public void initiateStatus() {
-		gamerService.calculateRankGamer();
+		List<Gamer> all = gamerService.getAll();
+		for(Gamer gamer:all) {
+			gamerService.calculateRankGamer(gamer);
+		}
 	}
 	
     /**

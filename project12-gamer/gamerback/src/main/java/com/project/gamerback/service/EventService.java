@@ -33,12 +33,19 @@ public interface EventService {
 	void addNewEvent(Event event);
 	
 	 /**
+     * Supprime un Event dans la liste de tous les events
+     *
+     * @param event : the Event that will be removed
+     */
+	void deleteEvent(Event event);
+	
+	 /**
      * Modifie les données de la base pour que le nombre de place
      * disponible correspondent au nombre de participants
      *
      * @param event : the Event
      */
-	void calculateSpotsTaken(Event event);
+	void calculateSpotsTaken();
 	
     /**
      * Renvoie la liste des events correspondant

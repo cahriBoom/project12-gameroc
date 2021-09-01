@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,7 +55,7 @@ public class Event {
 	private Gamer host;
 	
 	/**The list of gamers participating at the event */
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Gamer> participants;
 
 	/**The videogame linked to the event */

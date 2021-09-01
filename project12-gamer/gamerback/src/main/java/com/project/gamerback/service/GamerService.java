@@ -1,5 +1,6 @@
 package com.project.gamerback.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.project.gamerback.model.Gamer;
@@ -9,7 +10,14 @@ import com.project.gamerback.model.Gamer;
  */
 public interface GamerService {
 
-    /**
+	/**
+     * Renvoie la liste de tous les Gamer
+     *
+     * @return {@link List}
+     */
+    List<Gamer> getAll();
+	
+	/**
      * Renvoie un gamer à l'aide du mail
      *
      * @param mail : mail du gamer recherché
@@ -39,9 +47,16 @@ public interface GamerService {
      */
 	void addGamer(Gamer gamer);
 	
+    /**
+     * Supprime de la base le gamer donné
+     *
+     * @param gamer: Gamer concerné
+     */
+	void deleteGamer(Gamer gamer);
+	
 	/**
      * Calcul le Rank de chaque Gamer en fonction de ses notes
      *
      */
-	void calculateRankGamer();
+	void calculateRankGamer(Gamer gamer);
 }

@@ -74,8 +74,10 @@ public class EventController {
 		String plateform = event.getPlateform();
 		int maximum_players = event.getPlayer_needed();
 		event.setMaximum_players(maximum_players);
+		Gamer host = event.getParticipants().get(0);
 		Videogame videogame = videogameService.findByNomAndPlateform(videogame_name, plateform);
 		event.setVideogame(videogame);
+		event.setHost(host);
 		eventService.addNewEvent(event);
 	}
 	

@@ -18,6 +18,14 @@ public interface VideogameService {
 	List<Videogame> getAllGames();
 	
     /**
+     * Renvoie un Jeux en fonction de son numero
+     *
+     * @param id : numero of the videogame
+     * @return {@link List}
+     */
+	Videogame getById(int id);
+	
+    /**
      * Renvoie un jeu suivant sa plateforme et son nom
      *
      *@param nom : nom du jeu recherché
