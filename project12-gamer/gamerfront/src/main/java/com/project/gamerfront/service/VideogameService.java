@@ -17,6 +17,14 @@ public interface VideogameService {
 	List<VideogameBean> getAll();
 	
     /**
+     * Renvoie un jeu video suivant son numero
+     *
+     * @param id: numero du jeu video
+     * @return {@link VideogameBean}
+     */
+	VideogameBean getById(int id);
+	
+    /**
      * Renvoie la liste des jeux sans les doublons liées aux différentes plateforme
      *
      * @return {@link List}

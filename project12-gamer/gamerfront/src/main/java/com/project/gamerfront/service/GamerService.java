@@ -38,6 +38,13 @@ public interface GamerService extends UserDetailsService{
 	String addGamer(GamerBean gamer);
 	
     /**
+     * Supprime un Gamer
+     *
+     * @param gamer: Gamer concerné
+     */
+	void deleteGamer(GamerBean gamer);
+	
+    /**
      * Ajoute les modifications apportés par l'utilisateur
      *
      * @param gamer: Gamer concerné
@@ -78,6 +85,22 @@ public interface GamerService extends UserDetailsService{
      * @param voted: Gamer pour qui on vote
      */
 	void voteBadForGamer(GamerBean voter, GamerBean voted);
+	
+	/**
+	 * Retire un vote d'un joueur pour une autre joueur
+	 * 
+     * @param voter: Gamer qui a vote
+     * @param voted: Gamer pour qui l'on as vote
+	 */
+	void unvoteGoodGamer(GamerBean voter, GamerBean voted);
+	
+	/**
+	 * Retire un vote d'un joueur pour une autre joueur
+	 * 
+     * @param voter: Gamer qui a vote
+     * @param voted: Gamer pour qui l'on as vote
+	 */
+	void unvoteBadGamer(GamerBean voter, GamerBean voted);
 	
 	/**
      * Calcul le Rank de chaque Gamer en fonction de ses notes

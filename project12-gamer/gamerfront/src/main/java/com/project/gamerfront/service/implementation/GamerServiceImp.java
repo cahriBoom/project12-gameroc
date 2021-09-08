@@ -42,6 +42,10 @@ public class GamerServiceImp implements GamerService {
 		gamer.setPassword(BCryptManagerUtil.passwordencoder().encode(password));
 		return gamerProxy.addGamerSubscribe(gamer);
 	}
+	
+	public void deleteGamer(GamerBean gamer) {
+		gamerProxy.deleteGamer(gamer);
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -134,6 +138,24 @@ public class GamerServiceImp implements GamerService {
 		voted.setBad_rating(bad_rate);
 		gamerProxy.postVoteForGamer(mail_voter, voted);
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void unvoteGoodGamer(GamerBean voter, GamerBean voted) {
+		String mail = voter.getEmail();
+		gamerProxy.unvoteGoodGamer(mail, voted);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void unvoteBadGamer(GamerBean voter, GamerBean voted) {
+		String mail = voter.getEmail();
+		gamerProxy.unvoteBadGamer(mail, voted);
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -142,6 +164,5 @@ public class GamerServiceImp implements GamerService {
 	public void calculateRankGamer() {
 		gamerProxy.initiateStatus();
 	}
-
 
 }

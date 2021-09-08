@@ -18,11 +18,25 @@ public class VideogameServiceImp implements VideogameService{
 	@Autowired
 	private GamerProxy gamerProxy;
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<VideogameBean> getAll() {
 		return gamerProxy.getAllVideogames();
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public VideogameBean getById(int id) {
+		return gamerProxy.getVideogameById(id);
+	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<String> getGamesWithoutDupplicate() {
 		List<VideogameBean> videogames = gamerProxy.getAllVideogames();

@@ -13,6 +13,7 @@ import com.project.gamerfront.beans.GamerBean;
 import com.project.gamerfront.beans.VideogameBean;
 import com.project.gamerfront.proxies.GamerProxy;
 import com.project.gamerfront.service.EventService;
+import com.project.gamerfront.service.VideogameService;
 
 /**
  * Implementation du service Event
@@ -22,6 +23,9 @@ public class EventServiceImp implements EventService {
 
 	@Autowired
 	private GamerProxy gamerProxy;
+	
+	@Autowired
+	private VideogameService videogameService;
 
 	/**
 	 * {@inheritDoc}
@@ -48,7 +52,7 @@ public class EventServiceImp implements EventService {
 		}
 		return event_available;
 	}
-	
+		
 	/**
 	 * {@inheritDoc}
 	 */
@@ -72,6 +76,20 @@ public class EventServiceImp implements EventService {
 		event.setFin(fin);
 		event.setSpots(spots);
 		gamerProxy.addNewEvent(event);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void deleteEvent(EventBean event) {
+		List<EventBean> all = gamerProxy.getAllEvents();
+		for(EventBean e:all) {
+			if(e.getVgname().equals("Minecraft")) {
+				event = e;
+			}
+		}
+		gamerProxy.deleteEvent(event.getId());
 	}
 
 	/**
@@ -174,9 +192,6 @@ public class EventServiceImp implements EventService {
 		}
 		return events_participated;
 	}
-
-	
-
 
 
 }

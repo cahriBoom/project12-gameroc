@@ -41,6 +41,13 @@ public interface EventService {
      */
 	void addEvent(EventBean event);
 	
+	 /**
+     * Supprime un Event de la liste de tous les events
+     *
+     * @param event : the Event that will be removed
+     */
+	void deleteEvent(EventBean event);
+	
     /**
      * Renvoie la liste des events correspondant
      * à la recherche faite par l'utilisateur
