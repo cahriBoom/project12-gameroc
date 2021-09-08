@@ -58,7 +58,7 @@ public class EventController {
      * @param gamer : gamer concerné
      */
 	@PostMapping(value="/event/{id}")
-	void postUpdateGroup(@PathVariable("id") int id, @RequestBody Gamer gamer) {
+	public void postUpdateGroup(@PathVariable("id") int id, @RequestBody Gamer gamer) {
 		Event event = eventService.getById(id);
 		eventService.updateGroupEvent(event, gamer);
 	}
@@ -69,7 +69,7 @@ public class EventController {
      * @param Event : Event concerné
      */
 	@PostMapping(value="/post_event")
-	void addNewEvent(@RequestBody Event event) {
+	public void addNewEvent(@RequestBody Event event) {
 		String videogame_name = event.getVgname();
 		String plateform = event.getPlateform();
 		int maximum_players = event.getPlayer_needed();
@@ -82,12 +82,23 @@ public class EventController {
 	}
 	
     /**
+     * Supprime un event
+     *
+     * @param event: Event concerné
+     */
+	@PostMapping(value = "/delete_event/{id}")
+	public void deleteEvent(@PathVariable("id") int id) {
+		Event event = eventService.getById(id);
+		eventService.deleteEvent(event);
+	}
+	
+    /**
      * Ajoute a la base un nouvel event
      * 
      * @param Event : Event concerné
      */
 	@PostMapping(value="/search_event")
-	List<Event> getEventByVideoGame(@RequestBody Videogame videogame){
+	public List<Event> getEventByVideoGame(@RequestBody Videogame videogame){
 		String recherche = videogame.getNom();
 		return eventService.searchEvent(recherche);
 	}

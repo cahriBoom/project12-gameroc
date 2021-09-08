@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 public class EventTest {
 

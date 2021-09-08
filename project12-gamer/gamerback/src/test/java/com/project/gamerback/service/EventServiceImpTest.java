@@ -17,7 +17,7 @@ import com.project.gamerback.model.Event;
 import com.project.gamerback.model.Gamer;
 import com.project.gamerback.model.Videogame;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest

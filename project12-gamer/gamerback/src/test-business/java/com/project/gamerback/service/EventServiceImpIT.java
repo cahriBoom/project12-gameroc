@@ -1,12 +1,10 @@
 package com.project.gamerback.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,18 +33,6 @@ public class EventServiceImpIT {
 
 	@Autowired
 	private VideogameService videogameService;
-
-	@Before
-	public void setUpEvent() {
-		host = gamerService.getById(12).get();
-		videogame = videogameService.getById(14);
-		Event event = new Event(new Date(), "Minecraft survie in hardcore", "Survie", 6, 5, videogame,
-				videogame.getNom(), host);
-		participants.add(host);
-		event.setPlateform("PC");
-		event.setParticipants(participants);
-		eventService.addNewEvent(event);
-	}
 
 	@After
 	public void deleteEvent(Event event) {
@@ -83,7 +69,7 @@ public class EventServiceImpIT {
 	@Test
 	public void testCalculateSpotsTaken() {
 		// Arrange
-		int spots_expected = 2;
+		int spots_expected = 3;
 
 		// Act
 		eventService.calculateSpotsTaken();

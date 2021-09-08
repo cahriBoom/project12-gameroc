@@ -11,7 +11,6 @@ import com.project.gamerback.model.Event;
 @RepositoryRestResource
 public interface EventRepository extends JpaRepository<Event, Integer>{
 
-	
 	List<Event> findByVgnameContaining(String name);
 	
 	List<Event> findByPlateformContaining(String plateform);

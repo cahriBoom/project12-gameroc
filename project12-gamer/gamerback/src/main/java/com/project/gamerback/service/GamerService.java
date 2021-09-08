@@ -47,7 +47,7 @@ public interface GamerService {
      */
 	void addGamer(Gamer gamer);
 	
-    /**
+	/**
      * Supprime de la base le gamer donné
      *
      * @param gamer: Gamer concerné
@@ -59,4 +59,5 @@ public interface GamerService {
      *
      */
 	void calculateRankGamer(Gamer gamer);
+	
 }

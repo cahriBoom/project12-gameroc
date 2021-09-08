@@ -1,5 +1,6 @@
 package com.project.gamerback.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,54 @@ public class GamerController {
 		gamerService.updateProfile(gamer);		
 	}
 
+	/**
+	 * Permet de retirer un bon vote pour un joueur
+	 *
+	 * @param mail:  mail du joueur qui vote
+	 * @param gamer: Gamer pour qui l'on vote
+	 */
+	@PostMapping(value = "/unvote/good/{mail}")
+	public void unvoteGoodGamer(@PathVariable("mail") String mail, @RequestBody Gamer gamer) {
+		Gamer voter = gamerService.getByMail(mail).get();
+		Gamer voted = gamerService.getByMail(gamer.getEmail()).get();
+		List<Gamer> votedFor = voter.getVotedFor();
+		List<Gamer> gamers = new ArrayList<Gamer>();
+		int good = voted.getGood_rating();
+		for(Gamer g:votedFor) {
+			String gmail = g.getEmail();
+			if(!gmail.equals(gamer.getEmail())) {
+				gamers.add(g);
+			}
+		}
+		voted.setGood_rating(good-1);
+		voter.setVotedFor(gamers);
+		gamerService.updateProfile(voter);
+	}
+	
+	/**
+	 * Permet de retirer un mauvais vote pour un joueur
+	 *
+	 * @param mail:  mail du joueur qui vote
+	 * @param gamer: Gamer pour qui l'on vote
+	 */
+	@PostMapping(value = "/unvote/bad/{mail}")
+	public void unvoteBadGamer(@PathVariable("mail") String mail, @RequestBody Gamer gamer) {
+		Gamer voter = gamerService.getByMail(mail).get();
+		Gamer voted = gamerService.getByMail(gamer.getEmail()).get();
+		List<Gamer> votedFor = voter.getVotedFor();
+		List<Gamer> gamers = new ArrayList<Gamer>();
+		int bad = voted.getBad_rating();
+		for(Gamer g:votedFor) {
+			String gmail = g.getEmail();
+			if(!gmail.equals(gamer.getEmail())) {
+				gamers.add(g);
+			}
+		}
+		voted.setBad_rating(bad-1);
+		voter.setVotedFor(gamers);
+		gamerService.updateProfile(voter);
+	}
+	
     /**
      * Ajoute un nouveau gamer a la base de données
      * 
@@ -81,6 +130,17 @@ public class GamerController {
 			return "OK";
 		}
 		return "NOK";
+	}
+	
+	/**
+	 * Supprime un gamer
+	 *
+	 * @param gamer: Gamer concerné
+	 */
+	@PostMapping(value = "/delete_gamer")
+	public void deleteGamer(@RequestBody Gamer gamer) {
+		Gamer g = gamerService.getByMail(gamer.getEmail()).get();
+		gamerService.deleteGamer(g);
 	}
 	
     /**

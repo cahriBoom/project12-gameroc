@@ -36,7 +36,7 @@ public class EventServiceImp implements EventService {
 	public Event getById(int id) {
 		return eventRepository.findById(id).get();
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -161,5 +161,7 @@ public class EventServiceImp implements EventService {
 		}
 		return false;
 	}
+
+
 
 }
