@@ -25,7 +25,7 @@ Ce projet est conçu sur **Windows**, en utilisant **Eclipse** comme outil de d�
 
 ### Déploiement du projet
 - Télécharger la version la plus récente d'Apache Tomcat.
-- Telecharger Project7-Back, Project7-End, Project7-Batch dans votre environnement (ex : D:\ProjectGamer)
+- Telecharger project12-gameroc dans votre environnement (ex : D:\ProjectGamer)
 - Extraire les dossiers de l'archive : project12-gameroc
 
 ### Déploiement Tomcat
