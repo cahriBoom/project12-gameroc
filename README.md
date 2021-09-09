@@ -59,8 +59,6 @@ Ce projet est conÃ§u sur **Windows**, en utilisant **Eclipse** comme outil de dÃ
 	call "%EXECUTABLE%" %*
 >
 
->**NOTE :** A la ligne 3 de **shutdown.bat** et **startup.bat** il s'agit de 2 points et **NON** 3.
-
 - Ensuite modifier les ports de chaque instances de serveur dans le fichier **/conf/server.xml**
 
 >
