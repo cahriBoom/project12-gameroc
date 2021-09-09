@@ -39,7 +39,8 @@ Ce projet est conÃ§u sur **Windows**, en utilisant **Eclipse** comme outil de dÃ
 > set JAVA_HOME=< Chemin de votre variable d'environement JAVA>
 
 ### **startup.bat**
->@echo off
+>	
+	@echo off
 	if "%OS%" == "Windows_NT" setlocal
 	cd ..
 	set "CATALINA_BASE=%cd%"
@@ -48,7 +49,8 @@ Ce projet est conÃ§u sur **Windows**, en utilisant **Eclipse** comme outil de dÃ
 	call "%EXECUTABLE%" %*
 >
 ### **shutdown.bat**
->@echo off
+>
+	@echo off
 	if "%OS%" == "Windows_NT" setlocal
 	cd ..
 	set "CATALINA_BASE=%cd%"
