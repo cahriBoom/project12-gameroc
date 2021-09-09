@@ -40,21 +40,21 @@ Ce projet est conÃ§u sur **Windows**, en utilisant **Eclipse** comme outil de dÃ
 
 ### **startup.bat**
 >@echo off
-if "%OS%" == "Windows_NT" setlocal
-cd ..
-set "CATALINA_BASE=%cd%"
-set "CATALINA_HOME=< chemin de votre serveur main tomcat >"
-set "EXECUTABLE=%CATALINA_HOME%\bin\startup.bat"
-call "%EXECUTABLE%" %*
+	if "%OS%" == "Windows_NT" setlocal
+	cd ..
+	set "CATALINA_BASE=%cd%"
+	set "CATALINA_HOME=< chemin de votre serveur main tomcat >"
+	set "EXECUTABLE=%CATALINA_HOME%\bin\startup.bat"
+	call "%EXECUTABLE%" %*
 >
 ### **shutdown.bat**
 >@echo off
-if "%OS%" == "Windows_NT" setlocal
-cd ..
-set "CATALINA_BASE=%cd%"
-set "CATALINA_HOME=< chemin de votre serveur main tomcat >"
-set "EXECUTABLE=%CATALINA_HOME%\bin\shutdown.bat"
-call "%EXECUTABLE%" %*
+	if "%OS%" == "Windows_NT" setlocal
+	cd ..
+	set "CATALINA_BASE=%cd%"
+	set "CATALINA_HOME=< chemin de votre serveur main tomcat >"
+	set "EXECUTABLE=%CATALINA_HOME%\bin\shutdown.bat"
+	call "%EXECUTABLE%" %*
 >
 
 >**NOTE :** A la ligne 3 de **shutdown.bat** et **startup.bat** il s'agit de 2 points et **NON** 3.
