@@ -14,12 +14,12 @@ Ce projet est une application web divisé en deux parties :
 Ce projet est conçu sur **Windows**, en utilisant **Eclipse** comme outil de développement et **MySql** comme système de gestion de base de données.
 **Apache Maven** est utilisé pour la gestion et l'automatisation de production des projets logiciels Java. Et le framework **Spring boot** est utilisé afin de facilité le développement de l'application.
 
-### Pré-requis
+### Outils et versions utilisés
 
 - Windows 2010
-- Java jdk version 
-- MySQL version 
-- un serveur Tomcat version XXX
+- Java jdk version 8
+- MySQL version 4.0.3
+- un serveur Tomcat version 9.0.27
 - plusieurs instances de Apache Tomcat (minimum 2 instances)
 - un gestionnaire de base de données SQL (MySQL Workbench, ...)
 
@@ -77,7 +77,6 @@ Les trois instances doivent avoir des ports **différents**.
 
 
 ### Déploiement des fichiers WAR
-- Importer le projet dans votre outil de développement (Eclipse, InteliJ, ...) en fichier **.war**
 - Copier les fichiers .war dans **/webapps/** des sous-dossiers tomcat1,tomcat2
 
 
