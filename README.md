@@ -91,9 +91,11 @@ Les trois instances doivent avoir des ports **différents**.
 - Importer le jeu de données fournit dans "GamerData.sql".
 
 Note: Un login et un mot de passe sont requis pour la base de données.
+>
 	- login : root
 	- mdp : 
-
+>
+	
 ## Démarrage
 
 Une fois l'installation terminée.
