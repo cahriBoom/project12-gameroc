@@ -101,7 +101,7 @@ Note: Un login et un mot de passe sont requis pour la base de données. (mot de 
 Une fois l'installation terminée.
 
 Lancez un navigateur web, et entrez l'adresse:
-> [localhost:8081/GamerFtont/home](http://localhost:8081/GamerFront/home)
+> [localhost:8081/GamerFront/home](http://localhost:8081/GamerFront/home)
 
 ## Développé avec
 
